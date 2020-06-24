@@ -1,0 +1,1 @@
+pgfortran -O0  -o main main-2-root.f90  ../build/rtgw_util.so  -I../build

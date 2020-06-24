@@ -1,0 +1,4 @@
+# 此处不要用 ~ 代替 ../../
+ifort main-2.f90 -L../../opt/scifor/intel/lib -lscifor -I../../opt/scifor/intel/include
+# 当然标准的编译：是要将lapack blas 或者 mkl的库链接上
+pgfortran  main-2.f90 -L../../../opt/scifor/pgi/lib -lscifor  /home/cchen/pgi-compiler/linux86-64/2019/lib/liblapack.so /home/cchen/pgi-compiler/linux86-64/2019/lib/libblas.so /home/cchen/pgi-compiler/linux86-64/2019/lib/libblas.so   -I../../../opt/scifor/pgi/include

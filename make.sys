@@ -1,0 +1,45 @@
+F90 = ${compiler}
+#F90    = mpif90
+#F90    = mpiifort
+LINKER = $(F90)
+ARCHIVERlib = ar -ruv
+ARCHIVERdlib = -shared
+
+# dynamic library
+dlibname = rtgw_util.so
+
+nameexe = main
+
+# static library
+libname = rtgw_util.a
+
+# fortran preprocessor options, common setting
+#-------------------------------------------------------------------------
+MPI    = -DMPI
+#OMP    = -qopenmp
+FPP    = -cpp #-Munroll #-fpp
+LFLAG  = -fPIC #-Minfo=all
+
+#CUDA   = -DCUDA -Dmagma_devptr_t="integer(kind=8)"
+CPP    = $(FPP) $(MPI) $(OMP) $(API) $(CUDA)
+
+# machine tuning options, just for my laptop: iris system
+#-------------------------------------------------------------------------
+GPROF  = #-pg
+CHECK = -traceback -g #-nogen-interfaces
+CDUMP =  #-vec-report2 -openmp-report2 -nogen-interfaces
+LEVEL  = # -unroll-aggressive #-O3 -march=core-avx2 -unroll-aggressive  -align all # -I${MKLROOT}/include
+MARCH  = # -march=corei7-avx # core2 corei7 corei7-avx core-avx-i core-avx2
+
+#ifdef CUDA
+#  INCLUDE_CUDA = -I/home/zhliu/magma-install/include
+#endif
+
+# flags for compiler and linker
+#-------------------------------------------------------------------------
+ifdef dlibname
+FFLAGS  = -c $(LFLAG) $(CPP) $(CHECK) $(CDUMP) $(LEVEL) $(MARCH) $(GPROF) $(MKL) $(INCLUDE_CUDA)
+else
+FFLAGS  = -c $(CPP) $(CHECK) $(CDUMP) $(LEVEL) $(MARCH) $(GPROF) $(MKL) $(INCLUDE_CUDA)
+endif
+#LFLAGS = -static -Wl,-no_pie $(OMP) $(GPROF)
