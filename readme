@@ -1,1 +1,20 @@
-make build-dylib compiler=pgfortran
+# test for optimize and root search of fortran code 
+
+## structure 
+
+### root search
+1. library mode 
+
+* src
+* make.sys
+* Makefile
+* main_src 
+
+2. compiler as a whole part
+
+* complete
+
+### other
+
+* root search using scifor
+* minimize using scifor
